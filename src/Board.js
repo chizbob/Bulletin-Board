@@ -10,6 +10,7 @@ class Board extends Component {
     this.update = this.update.bind(this)
     this.nextId = this.nextId.bind(this)
     this.add = this.add.bind(this)
+    this.remove = this.remove.bind(this)
   }
 
   componentWillMount() {
@@ -49,13 +50,21 @@ class Board extends Component {
     return this.uniqueId++
   }
 
+  remove(id) {
+    console.log('removing item at', id)
+    this.setState(prevState => ({
+			notes: prevState.notes.filter(note => note.id !== id)
+		}))
+  }
+
   render(){
     return(
       <div className="board">
         {this.state.notes.map((note, i) =>
           <Note key={note.id}
                 index={note.id}
-                onChange={this.update}>
+                onChange={this.update}
+                onRemove={this.remove}>
                 {note.note}
           </Note>
         )}

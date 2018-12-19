@@ -24,21 +24,27 @@ class Note extends Component {
 		}
 	}
 
-  componentDidUpdate() {
-  var textArea
-  if(this.state.editing) {
-    textArea = this._newText
-    textArea.focus()
-    textArea.select()
+  randomBetween(x, y, s){
+    return (
+      x + Math.ceil(Math.random() * (y-x)) + s
+    )
   }
 
-}
+  componentDidUpdate() {
+		var textArea
+		if(this.state.editing) {
+			textArea = this._newText
+			textArea.focus()
+			textArea.select()
+		}
 
-shouldComponentUpdate(nextProps, nextState) {
-  return (
-    this.props.children !== nextProps.children || this.state !== nextState
-  )
-}
+	}
+
+	shouldComponentUpdate(nextProps, nextState) {
+		return (
+			this.props.children !== nextProps.children || this.state !== nextState
+		)
+	}
 
   edit(){
     this.setState({
@@ -50,13 +56,13 @@ shouldComponentUpdate(nextProps, nextState) {
 		this.props.onRemove(this.props.index)
 	}
 
-  save(e){
-    e.preventDefault()
-    this.props.onChange(this._newText.value, this.props.index)
-    this.setState({
-      editing: false
-    })
-  }
+  save(e) {
+		e.preventDefault()
+		this.props.onChange(this._newText.value, this.props.index)
+		this.setState({
+			editing: false
+		})
+	}
 
   renderForm(){
     return(
@@ -77,12 +83,6 @@ shouldComponentUpdate(nextProps, nextState) {
           <button onClick={this.edit} id="edit">Edit</button>
           <button onClick={this.remove} id="remove">Delete</button>
       </div>
-    )
-  }
-
-  randomBetween(x, y, s){
-    return (
-      x + Math.ceil(Math.random() * (y-x)) + s
     )
   }
 
